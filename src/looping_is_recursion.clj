@@ -68,8 +68,23 @@
       (recur (toggle acc (first lst)) (rest lst)))))
 
 (defn fast-fibo [n]
-  ":(")
+  (loop [a 0
+         b 1
+         m 1]
+    (cond
+     (= n 0) a
+     (= n m) b
+     :else (recur b (+ a b) (inc m)))))
 
 (defn cut-at-repetition [a-seq]
-  [":("])
+  (loop [acc []
+         seen #{}
+         lst a-seq]
+    (let [fst (first lst)
+          rst (rest  lst)]
+      (if (contains? seen fst)
+        acc
+        (if (empty? rst)
+          (conj acc fst)
+          (recur (conj acc fst) (conj seen fst) rst))))))
 
